@@ -1,0 +1,455 @@
+
+<style>
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes shimmerTxt{0%{background-position:0% center}100%{background-position:200% center}}
+@keyframes glowRed{0%,100%{box-shadow:0 0 0px #c0392b}50%{box-shadow:0 0 22px #c0392b99}}
+@keyframes glowBlue{0%,100%{box-shadow:0 0 0px #1a6fd4}50%{box-shadow:0 0 22px #1a6fd488}}
+@keyframes rotateBadge{0%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}100%{transform:rotate(-2deg)}}
+@keyframes ripple{0%{transform:scale(0.9);opacity:1}100%{transform:scale(2.2);opacity:0}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes countUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes borderFlow{0%{border-color:#1a3a6d}50%{border-color:#2a6fd4}100%{border-color:#1a3a6d}}
+@keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+.sp{
+  font-family:system-ui,-apple-system,sans-serif;
+  background:#05080f;
+  color:#e2eaf8;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* BG BLOBS */
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.13;
+  pointer-events:none;
+  z-index:0;
+}
+.blob1{width:420px;height:420px;background:#1a6fd4;top:-80px;left:-100px;animation:floatY 9s ease-in-out infinite}
+.blob2{width:320px;height:320px;background:#c0392b;bottom:10%;right:-80px;animation:floatY 11s 2s ease-in-out infinite}
+.blob3{width:250px;height:250px;background:#1a3a6d;top:50%;left:40%;animation:floatY 13s 4s ease-in-out infinite}
+
+.content{position:relative;z-index:1}
+
+/* NAV */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 1.5rem;
+  border-bottom:1px solid #0e1828;
+  animation:fadeInDown .6s ease both;
+}
+.nav-logo{
+  font-size:.95rem;font-weight:700;letter-spacing:.5px;
+  background:linear-gradient(90deg,#5ea3f0,#fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-dot{
+  width:8px;height:8px;border-radius:50%;background:#2ecc71;
+  animation:blink 2s infinite;
+  position:relative;
+}
+.nav-dot::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid #2ecc71;
+  animation:ripple 2s infinite;
+}
+.nav-live{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a5a}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:3.5rem 1.5rem 2rem;
+}
+.ai-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(135deg,#0d1a35,#111d38);
+  border:1px solid #1e3560;
+  color:#5ea3f0;
+  font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 18px;border-radius:99px;
+  margin-bottom:1.8rem;
+  animation:fadeInDown .7s .1s ease both, rotateBadge 4s 1s ease-in-out infinite;
+}
+.ai-badge-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#5ea3f0;
+  animation:blink 1.5s infinite;
+}
+
+.hero-title{
+  font-size:clamp(2.1rem,7vw,3.2rem);
+  font-weight:800;line-height:1.1;
+  margin-bottom:1rem;
+  background:linear-gradient(135deg,#ffffff 0%,#5ea3f0 40%,#e74c3c 80%,#ffffff 100%);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:fadeInUp .7s .2s ease both, shimmerTxt 6s linear infinite;
+}
+.hero-sub{
+  font-size:.97rem;color:#7a8faa;max-width:400px;
+  margin:0 auto 2.2rem;line-height:1.7;
+  animation:fadeInUp .7s .3s ease both;
+}
+
+/* PRICE */
+.price-wrap{
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:12px;margin-bottom:1rem;
+  animation:fadeInUp .7s .4s ease both;
+}
+.price-original{
+  font-size:.95rem;color:#3a4a62;text-decoration:line-through;
+}
+.price-now{
+  font-size:2.4rem;font-weight:800;
+  background:linear-gradient(90deg,#fff,#a0c8ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.disc-pill{
+  background:#c0392b;color:#fff;
+  font-size:11px;font-weight:800;
+  padding:5px 12px;border-radius:8px;
+  animation:pulse 2s infinite, glowRed 3s infinite;
+  letter-spacing:.5px;
+}
+.price-sub{
+  font-size:11.5px;color:#c0392b;text-align:center;
+  margin-bottom:1.8rem;letter-spacing:.5px;text-transform:uppercase;
+  animation:fadeInUp .7s .45s ease both;
+}
+
+/* CTA */
+.cta-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:fadeInUp .7s .5s ease both;
+}
+.cta-btn{
+  position:relative;
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#0e8c5c,#25d366,#0e8c5c);
+  background-size:200% auto;
+  color:#fff;font-size:1.05rem;font-weight:700;
+  padding:16px 36px;border-radius:16px;border:none;
+  cursor:pointer;text-decoration:none;
+  animation:bgMove 3s linear infinite, glowBlue 0s;
+  transition:transform .2s;
+  letter-spacing:.3px;overflow:hidden;
+}
+.cta-btn::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:rgba(255,255,255,.08);opacity:0;transition:opacity .2s;
+}
+.cta-btn:hover{transform:scale(1.04) translateY(-3px)}
+.cta-btn:hover::before{opacity:1}
+.cta-btn svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+
+.guarantee{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:#3a5060;
+}
+.guarantee span{color:#e74c3c;font-weight:600}
+
+/* FLOATING CARDS */
+.float-cards{
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  padding:2rem 1rem 0;
+  animation:fadeInUp .7s .55s ease both;
+}
+.f-card{
+  background:#090f1e;
+  border:1px solid #111e35;
+  border-radius:14px;
+  padding:16px 18px;
+  min-width:130px;text-align:center;
+  animation:borderFlow 4s infinite, floatY 6s ease-in-out infinite;
+  transition:transform .25s;
+}
+.f-card:nth-child(2){animation-delay:1s,2s}
+.f-card:nth-child(3){animation-delay:2s,4s}
+.f-card:nth-child(4){animation-delay:3s,1s}
+.f-card:hover{transform:translateY(-6px) scale(1.04)}
+.f-card-icon{font-size:1.6rem;margin-bottom:8px}
+.f-card-val{font-size:1.3rem;font-weight:800;color:#5ea3f0}
+.f-card-lbl{font-size:10.5px;color:#3a4f6a;margin-top:2px}
+
+/* DIVIDER */
+.div-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent,#142040,transparent);
+  margin:2.5rem 1rem;
+}
+
+/* FEATURES */
+.features{padding:0 1rem;max-width:580px;margin:0 auto}
+.sec-tag{
+  text-align:center;font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:#5ea3f0;margin-bottom:1.4rem;
+}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat{
+  background:#080d1c;
+  border:1px solid #101c33;
+  border-radius:16px;padding:18px 16px;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  animation:slideInLeft .6s ease both;
+  cursor:default;
+}
+.feat:nth-child(2n){animation-name:slideInRight}
+.feat:nth-child(1){animation-delay:.1s}
+.feat:nth-child(2){animation-delay:.2s}
+.feat:nth-child(3){animation-delay:.3s}
+.feat:nth-child(4){animation-delay:.4s}
+.feat:hover{
+  transform:translateY(-6px) rotate(-.5deg);
+  border-color:#1e4080;
+  box-shadow:0 12px 32px rgba(26,111,212,.15);
+}
+.feat-ico{font-size:1.8rem;margin-bottom:10px;display:block;animation:floatY 5s ease-in-out infinite}
+.feat:nth-child(2) .feat-ico{animation-delay:1s}
+.feat:nth-child(3) .feat-ico{animation-delay:2s}
+.feat:nth-child(4) .feat-ico{animation-delay:3s}
+.feat-h{font-size:13.5px;font-weight:700;color:#c8d8f0;margin-bottom:5px}
+.feat-p{font-size:11.5px;color:#3f5470;line-height:1.55}
+
+/* VIDEO */
+.vid-section{padding:0 1rem;max-width:580px;margin:0 auto}
+.vid-label{text-align:center;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#5ea3f0;margin-bottom:1.2rem}
+.vid-frame{
+  position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid #111e35;background:#07090f;
+  aspect-ratio:16/9;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  transition:box-shadow .3s;
+}
+.vid-frame:hover{box-shadow:0 24px 70px rgba(26,111,212,.2)}
+.vid-thumb{
+  position:absolute;inset:0;
+  background:url('https://img.youtube.com/vi/D-ke958x8kM/hqdefault.jpg') center/cover no-repeat;
+  z-index:1;
+}
+.vid-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:rgba(5,8,15,.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .25s;
+  gap:14px;
+}
+.vid-overlay:hover{background:rgba(5,8,15,.3)}
+.play-ring{
+  position:relative;
+  width:70px;height:70px;
+}
+.play-ring::before{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid rgba(94,163,240,.4);
+  animation:ripple 2s infinite;
+}
+.play-ring::after{
+  content:'';position:absolute;inset:-12px;border-radius:50%;
+  border:1px solid rgba(94,163,240,.2);
+  animation:ripple 2s .5s infinite;
+}
+.play-circle{
+  width:70px;height:70px;border-radius:50%;
+  background:#c0392b;
+  display:flex;align-items:center;justify-content:center;
+  animation:floatY 2.5s ease-in-out infinite, glowRed 2.5s infinite;
+  transition:transform .2s;
+}
+.vid-overlay:hover .play-circle{transform:scale(1.1)}
+.play-circle svg{width:26px;height:26px;fill:#fff;margin-left:4px}
+.vid-caption{
+  font-size:12px;color:#7a9ac0;font-weight:500;
+  text-align:center;padding:0 1rem;
+}
+.vid-footer{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  background:linear-gradient(transparent,rgba(5,8,15,.88));
+  padding:24px 16px 14px;
+}
+.vid-footer p{font-size:12px;color:#8aaad0}
+
+/* CTA BOTTOM */
+.cta-bottom{
+  text-align:center;padding:2.2rem 1.5rem 0;
+}
+.cta-tag{font-size:11px;color:#c0392b;text-transform:uppercase;letter-spacing:.8px;margin-bottom:1.2rem}
+.cta-note{font-size:11.5px;color:#2a3a52;margin-top:.9rem}
+
+/* FOOTER */
+.foot{
+  text-align:center;margin-top:2.5rem;
+  font-size:10.5px;color:#1a2535;
+  padding:0 1rem 1rem;
+}
+</style>
+
+<div class="sp">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <div class="content">
+
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="nav-logo">SignalPro · Ridho</div>
+      <div class="nav-live">
+        <div class="nav-dot"></div>
+        <span>Live & Ready</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="ai-badge">
+        <div class="ai-badge-dot"></div>
+        THE BEST AI SIGNAL INDICATOR
+      </div>
+
+      <h1 class="hero-title">SignalPro<br>by Ridho</h1>
+      <p class="hero-sub">Indikator trading berbasis AI yang kasih sinyal entry & exit otomatis — akurat, cepat, dan mudah digunakan siapapun.</p>
+
+      <div class="price-wrap">
+        <span class="price-original">Rp450.000</span>
+        <span class="price-now">Rp100.000</span>
+        <span class="disc-pill">HEMAT 78%</span>
+      </div>
+      <p class="price-sub">⚡ Harga promo launch — bisa naik kapan saja</p>
+
+      <div class="cta-wrap">
+        <a class="cta-btn" id="ctaTop" href="#">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Beli Sekarang via WhatsApp
+        </a>
+        <div class="guarantee">🔒 Aman &nbsp;·&nbsp; <span>Slot Terbatas</span> &nbsp;·&nbsp; Respon Cepat</div>
+      </div>
+    </section>
+
+    <!-- FLOAT CARDS -->
+    <div class="float-cards">
+      <div class="f-card">
+        <div class="f-card-icon">📊</div>
+        <div class="f-card-val">Real-Time</div>
+        <div class="f-card-lbl">Sinyal Instan</div>
+      </div>
+      <div class="f-card">
+        <div class="f-card-icon">🎯</div>
+        <div class="f-card-val">Auto</div>
+        <div class="f-card-lbl">TP & SL</div>
+      </div>
+      <div class="f-card">
+        <div class="f-card-icon">⚡</div>
+        <div class="f-card-val">Semua</div>
+        <div class="f-card-lbl">Pair & TF</div>
+      </div>
+      <div class="f-card">
+        <div class="f-card-icon">📈</div>
+        <div class="f-card-val">Backtest</div>
+        <div class="f-card-lbl">Dashboard</div>
+      </div>
+    </div>
+
+    <div class="div-line"></div>
+
+    <!-- FEATURES -->
+    <div class="features">
+      <p class="sec-tag">Kenapa SignalPro?</p>
+      <div class="feat-grid">
+        <div class="feat">
+          <span class="feat-ico">🚀</span>
+          <div class="feat-h">Sinyal Real-Time</div>
+          <div class="feat-p">Notifikasi langsung saat peluang entry muncul — tidak ada yang terlewat.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-ico">🎯</span>
+          <div class="feat-h">TP & SL Otomatis</div>
+          <div class="feat-p">Kalkulasi Take Profit & Stop Loss berbasis volatilitas ATR secara otomatis.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-ico">📊</span>
+          <div class="feat-h">Dashboard Backtest</div>
+          <div class="feat-p">Lihat winrate, total pips, dan rekap trade langsung di chart TradingView.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-ico">🌐</span>
+          <div class="feat-h">Semua Instrumen</div>
+          <div class="feat-p">Forex, Gold, Crypto, Indices — bekerja optimal di semua timeframe.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-line"></div>
+
+    <!-- VIDEO -->
+    <div class="vid-section">
+      <p class="vid-label">Tonton Dulu Sebelum Beli</p>
+      <div class="vid-frame" id="vidFrame">
+        <div class="vid-thumb" id="vidThumb"></div>
+        <div class="vid-overlay" id="vidOverlay">
+          <div class="play-ring">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="vid-caption">Penjelasan & cara penggunaan<br>SignalPro by Ridho</div>
+        </div>
+        <div class="vid-footer">
+          <p>▶ Klik untuk memutar video</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-line"></div>
+
+    <!-- CTA BOTTOM -->
+    <div class="cta-bottom">
+      <p class="cta-tag">🔥 Promo Rp100.000 — Jangan Sampai Kehabisan!</p>
+      <a class="cta-btn" id="ctaBot" href="#">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Beli Sekarang via WhatsApp
+      </a>
+      <p class="cta-note">Klik tombol → langsung terhubung ke WhatsApp admin Ridho</p>
+    </div>
+
+    <div class="foot">© 2025 SignalPro by Ridho &nbsp;·&nbsp; TradingView Premium Indicator</div>
+
+  </div>
+</div>
+
+<script>
+  const waNum = "6281224131606";
+  const waMsg = encodeURIComponent("Halo Ridho! 👋\n\nSaya tertarik membeli *SignalPro by Ridho* dengan harga promo Rp100.000.\n\nMohon info selanjutnya untuk proses pembayaran dan cara mendapatkan akses indikatornya.\n\nTerima kasih! 🙏");
+  const waURL = "https://wa.me/" + waNum + "?text=" + waMsg;
+
+  document.getElementById("ctaTop").href = waURL;
+  document.getElementById("ctaBot").href = waURL;
+
+  document.getElementById("vidOverlay").addEventListener("click", function(){
+    document.getElementById("vidFrame").innerHTML =
+      '<iframe src="https://www.youtube.com/embed/D-ke958x8kM?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:18px"></iframe>';
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.feat,.f-card,.vid-section,.cta-bottom').forEach(el=>{
+    el.style.opacity='0';el.style.transition='opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+</script>
